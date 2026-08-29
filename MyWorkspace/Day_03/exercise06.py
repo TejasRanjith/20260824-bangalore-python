@@ -1,4 +1,1 @@
-input_marks = input("Enter the marks separated by space: ")
-marks = []
-for mark in input_marks.split():
-    marks.append(int(mark))
+print([mark+10 if mark<50 else mark+5 if mark+5 < 100 else mark-mark+100 for mark in [int(mark) for mark in input("Enter the marks separated by space: ").split()]])
