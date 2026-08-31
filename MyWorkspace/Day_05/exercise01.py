@@ -1,14 +1,12 @@
-def factorial(n):
-    tot = 1
-    for num in range(n,0,-1):
-        tot = tot*num
-    return tot
+def calculate_cafeteria_bill(base_price, *items, tax_rate=0.05, discount=0.0, delivery_fee=0.0):
+    total_price = sum((base_price,*items))
+    total_price*=(1-(discount/100))
+    total_price+=(total_price*tax_rate)
+    total_price+=delivery_fee
+    return f"{total_price:.2f}"
 
 
-def combinations(n,r):
-    if n >= r:
-        return factorial(n)/(factorial(r) * factorial(n-r))
-    else:
-        return None
-
-print(combinations(1,0))
+total1 = calculate_cafeteria_bill(100.00)
+total2 = calculate_cafeteria_bill(100.0, 20.0, 30.0, tax_rate=0.08, discount=10.0, delivery_fee=15.0)
+print(total1)
+print(total2)
