@@ -4,8 +4,13 @@ def scrape_directory_phones(directory_text):
     m1 = re.findall(r"([0-9-()\s]{3,})",directory_text)
     for num in sorted(m1):
         phone_record,num = dict(),num.strip()
-        phone_record = re.findall(r"[0-9]+",num)        
+        values = re.findall(r"[0-9]{1,3}",num)        
+        phone_record["area_code"] = values[0]
+        phone_record["prefix"] = values[1]
+        phone_record["line_number"] = values[2]+values[3]
+        phone_record["formatted"] = f"({phone_record['area_code']}) {phone_record['prefix']}-{phone_record['line_number']}"
         print(phone_record)
+        
             
     
     for item in phone_book:
