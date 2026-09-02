@@ -1,4 +1,6 @@
 AUDIT_TRANSACTION_COUNT = 0
+
+
 def create_bank_account(owner_name, initial_balance):
     global AUDIT_TRANSACTION_COUNT
     balance = float(initial_balance)
