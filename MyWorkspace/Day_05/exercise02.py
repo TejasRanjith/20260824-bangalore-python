@@ -1,7 +1,8 @@
 import re
 def validate_academic_email(email):
-    m = re.search(r"^([a-z0-9._]+)@([a-z-]+).([a-z.]+)$",email)
+    m = re.search(r"^([a-z0-9._]+)@([a-z]+).([a-z.]+)$",email)
     if m and (m.groups()[-1] in ("res.in","edu")):
+        # print(m.groups())
         return True
     else:
         return False
