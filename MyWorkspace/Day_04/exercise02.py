@@ -11,8 +11,8 @@ def register_contact(phonebook, name, phone_input):
     
     try:
         phone_string = str(phone_input)
-        phone_input = int(phone_input)
-        phonebook[name] = phone_string
+        phone_int = int(phone_input)
+        phonebook[name] = phone_input
         return phonebook
     except ValueError:
         raise InvalidPhoneNumberError("Phone number must contain digits only.")
