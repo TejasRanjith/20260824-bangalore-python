@@ -1,15 +1,14 @@
 import subprocess
-import os
+import re
 
 def add_book_entry(catalog,next_id):
     
     try:
-        
         book_title = input("Enter the new book title to add: ").strip().title()
         if len(book_title) == 0:
             raise ValueError
         author_name = input("Enter the authors name: ").strip().title()
-        if len(author_name) == 0:
+        if len(author_name) == 0 or re.search(r"[0-9]+",author_name):
             raise ValueError
         genre = input("Enter the genre name to which the book belongs to: ").strip().title()
         if len(genre) == 0:
@@ -22,7 +21,7 @@ def add_book_entry(catalog,next_id):
             raise ValueError
     except ValueError:
         print("Try again with proper input values.\n GOING BACK TO MENU.......")
-        return -1
+        return catalog
     else:
         catalog.append(dict(
             id = next_id,
@@ -32,24 +31,52 @@ def add_book_entry(catalog,next_id):
             price = price,
             copies = copies
             ))
+        return catalog
         
         
         
         
 def render_catalog(catalog):
-    pass
+    print(catalog)
+    return catalog
     
+def sync_catalog_to_file(filepath,catalog):
+    if len(catalog) != 0:
+        try:
+            with open(filepath,'w+') as f:
+                old_content = f.read()
+                old_catalog = eval(old_content)
+                f.write(f"{old_catalog.extend(catalog)}")
+            return load_catalog_from_file(filepath,[])
+        except FileNotFoundError:
+            with open(filepath,'w') as f:
+                f.write(f"{catalog}")
+            return load_catalog_from_file(filepath,[])
+            
+    else:
+        print("Nothing in catalog to perform sync process.")
+        return catalog
 
-def load_catalog_from_file():
-    return []
+def load_catalog_from_file(filepath,catalog):
+    if len(catalog) > 0:
+        print(f"Loading now, will overwrite the current catalog, \n{render_catalog(catalog)}\n")
+        ch = input("Are you sure want to overwrite with the new catalog ? (y to confirm) DEFUALT (No) : ").strip().lower()
+        if ch != 'y':
+            return catalog
+        else:
+            sync_catalog_to_file(filepath,catalog)
+            return catalog
+    else:
+        try:
+            with open(filepath,'r') as f:
+                output = f.read()
+                return eval(output)
+        except FileNotFoundError:
+            print("Please Add Books to the catalog first.")
+            return catalog
         
-        
-        
-        
-        
-        
-
-
+            
+            
 def menu():
     while True:
         print("\n","*"*92,"\n")
@@ -68,8 +95,9 @@ def menu():
         
 
 def main():
-    catalog = load_catalog_from_file()
-    if len(catalog) == 0:
+    file = "books.txt"
+    catalog = load_catalog_from_file(file,[])
+    if type(catalog) == type(None):
         catalog = []
     counter = len(catalog)
     subprocess.run('cls', shell=True)
@@ -81,6 +109,10 @@ def main():
             catalog = add_book_entry(catalog,counter+1)
         elif choice == 2:
             catalog = render_catalog(catalog)
+        elif choice == 6:
+            catalog = sync_catalog_to_file(file,catalog)
+        elif choice == 7:
+            catalog = load_catalog_from_file(file,catalog)
         choice = menu()
     print("*"*92,"\n")
     print("x"*18,"THANK YOU FOR USING THE BOOK CATALOG MANAGEMENT SYSTEM","x"*18)
