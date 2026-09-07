@@ -5,6 +5,16 @@ students = [
     {"id": 2, "name": "Diya Patel",   "course": "Data Science", "marks": 74.0, "grade": "B"}
 ]
 
+def grade(marks):
+    if marks >= 85:
+        return 'A'
+    elif marks in range(70,85):
+        return 'B'
+    elif marks in range(50,70):
+        return 'C'
+    else:
+        return 'F'
+
 def enroll_stud():
     name = input("Enter Candidate's Name (only letters pls): ").title().strip()
     if len(name)==0:
@@ -20,19 +30,6 @@ def enroll_stud():
             return -1
     except ValueError:
         print("Please enter marks as int....")
-        
-def grade(marks):
-    if marks >= 85:
-        return 'A'
-    elif marks in range(70,85):
-        return 'B'
-    
-    elif marks in range(50,70):
-        return 'C'
-    else:
-        return 'F'
-
-
 
 def menu():
     print("*"*15,"Student Grade Management System".upper(),"*"*15,"\n   ")
