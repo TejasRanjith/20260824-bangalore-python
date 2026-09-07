@@ -1,7 +1,7 @@
 **/__pycache__
 **/.DS_Store
 **/temp
-/Day_10
+**/.venv
 /Day_11
 /.vscode
 book_cover.jpg
