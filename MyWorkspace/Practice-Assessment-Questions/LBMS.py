@@ -43,14 +43,19 @@ def render_catalog(catalog):
 
 def query_books(catalog, search_term):
     for book in catalog:
-        if search_term in book.values():
-            print(book)
+        for value in [book['id'],book['author_name'],book['genre'],book['book_title']]:
+            if re.search(rf'{search_term}',str(value)):
+                print(book,"<-----------",value)
+            else:
+                print("not founc")
+                print("<-----------",value)
 
 
 
 
 def search_catalog(catalog):
-    query_books(catalog,"ej")
+    query_books(catalog,"t")
+    return catalog
     
 
 
