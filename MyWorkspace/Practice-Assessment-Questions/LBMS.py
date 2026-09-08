@@ -52,9 +52,13 @@ def  sync_catalog_to_file(filepath,catalog):
             with open(filepath,"w") as f2:
                 old_catalog = eval(old_content)
                 for d in catalog:
-                    if d['id'] in [book.values()[0] for book in old_catalog]:
-                        print("True")
-                f2.write(f"{old_catalog}")
+                    if d['id'] in [list(book.values())[0] for book in old_catalog]:
+                        print(f"Book of id '{d['id']}' already exists.")
+                    else:
+                        to_add = dict(id = d['id'],book_title=d['book_title'],author_name = d['author_name'],genre=d['genre'],price=d['price'],copies = d['copies'])
+                        old_catalog.append(to_add)
+                        f2.write(f"{old_catalog}")
+
                 return old_catalog
         except FileNotFoundError:
             with open(filepath,'w') as f:
@@ -106,6 +110,7 @@ def main():
     subprocess.run('cls', shell=True)
     choice = menu()
     while not choice == 8:
+        counter = len(catalog)
         if choice == 0:
             subprocess.run('cls', shell=True)
         elif choice == 1:
