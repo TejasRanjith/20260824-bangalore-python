@@ -1,1 +1,1 @@
-[{'id': 1, 'book_title': 'Teas', 'author_name': 'Tejas', 'genre': 'Tejas', 'price': 123444.0, 'copies': 12}]
+[{'id': 1, 'book_title': 'Tejas', 'author_name': 'Tejas', 'genre': 'Tejas', 'price': 1234444.0, 'copies': 12}, {'id': 2, 'book_title': 'Tejas', 'author_name': 'Tejas', 'genre': 'Tejas', 'price': 123333.0, 'copies': 12}, {'id': 3, 'book_title': 'Tejas', 'author_name': 'Tejas', 'genre': 'Tejas', 'price': 122222.0, 'copies': 12}, {'id': 4, 'book_title': 'Tejas', 'author_name': 'Tejas', 'genre': 'Tejas', 'price': 1211111.0, 'copies': 12}]

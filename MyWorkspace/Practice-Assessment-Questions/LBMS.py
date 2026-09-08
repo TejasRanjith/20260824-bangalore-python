@@ -1,7 +1,7 @@
 import subprocess
 import re
-def add_book_entry(catalog,next_id):
-    
+def add_book_entry(catalog: list[dict], next_id: int) -> int:
+    """Prompts user for book details, appends new dict, returns updated ID counter."""
     try:
         book_title = input("Enter the new book title to add: ").strip().title()
         if len(book_title) == 0:
@@ -34,13 +34,25 @@ def add_book_entry(catalog,next_id):
             copies = copies
             ))
         return catalog
-        
-        
-        
-        
+
+
 def render_catalog(catalog):
     print(catalog)
     return catalog
+
+
+def query_books(catalog, search_term):
+    for book in catalog:
+        if search_term in book.values():
+            print(book)
+
+
+
+
+def search_catalog(catalog):
+    query_books(catalog,"ej")
+    
+
 
 def  sync_catalog_to_file(filepath,catalog):
     if len(catalog) != 0:
@@ -57,7 +69,7 @@ def  sync_catalog_to_file(filepath,catalog):
                     else:
                         to_add = dict(id = d['id'],book_title=d['book_title'],author_name = d['author_name'],genre=d['genre'],price=d['price'],copies = d['copies'])
                         old_catalog.append(to_add)
-                        f2.write(f"{old_catalog}")
+                f2.write(f"{old_catalog}")
 
                 return old_catalog
         except FileNotFoundError:
@@ -68,6 +80,7 @@ def  sync_catalog_to_file(filepath,catalog):
     else:
         print("Nothing in catalog to perform sync process.")
         return catalog
+
 
 def load_catalog_from_file(filepath,catalog):
     if len(catalog) > 0:
@@ -83,7 +96,6 @@ def load_catalog_from_file(filepath,catalog):
             return catalog
         
             
-            
 def menu():
     while True:
         print("\n","*"*92,"\n")
@@ -98,7 +110,6 @@ def menu():
         except ValueError:
             print("Retry again with a valid option shown from the menu.")
             continue
-
 
 
 def main():
@@ -117,6 +128,8 @@ def main():
             catalog = add_book_entry(catalog,counter+1)
         elif choice == 2:
             catalog = render_catalog(catalog)
+        elif choice == 3:
+            catalog = search_catalog(catalog)
         elif choice == 6:
             catalog = sync_catalog_to_file(file,catalog)
         elif choice == 7:
@@ -124,7 +137,6 @@ def main():
         choice = menu()
     print("*"*92,"\n")
     print("x"*18,"THANK YOU FOR USING THE BOOK CATALOG MANAGEMENT SYSTEM","x"*18)
-
 
 
 if __name__ == "__main__":
